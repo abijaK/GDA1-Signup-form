@@ -106,9 +106,12 @@ div{
     width: 100%;
 }
 
-/* div small{
-    
-} */
+div small{
+    margin-top: 5px;
+    font-style: italic;
+    padding-right: 0px; 
+}
+
 input
 {
     padding: .9em;
