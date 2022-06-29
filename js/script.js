@@ -5,7 +5,19 @@ let form = document.querySelector('#loginForm');
     =========================
  */ 
 // add listener on form
+form.addEventListener('submit', function () {
+    validForm(this);
+})
 
+const validForm = function (params) {
+    
+    let small = params.nextElementSibling;
+    // test if isNull
+    if (params.value.trim() == '') {
+        small.innerHTML = 'Firstname cannot be empty';
+        small.style.color = 'red';
+    }
+}
 
 /*
     input Firstname traitement
@@ -47,8 +59,10 @@ form.lastname.addEventListener('change', function () {
     validLastname(this);
 })
 
-// Create RegExp for Lastname validation
+// Create function validLastname
 const validLastname = function(inputLastname) {
+
+    // Create RegExp to validate Lastname
     let lastnameRegExp = new RegExp('^[a-zA-Z-\s]+$', 'g');
     
     let testLastname = lastnameRegExp.test(inputLastname.value); 
@@ -75,10 +89,10 @@ form.email.addEventListener('change', function() {
     validEmail(this);
 })
 
-// Create function to valide Email
+// Create function validEmail
 const validEmail = function(inputEmail) {
     
-    // Create of RegExp for Email validation
+    // Create RegExp to validate Email
     let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g');
     
     let testEmail = emailRegExp.test(inputEmail.value); 
@@ -94,3 +108,12 @@ const validEmail = function(inputEmail) {
 }
 
 // add listener for Password
+form.password.addEventListener('change', function () {
+    validPassword(this);
+})
+
+// Create function validPassword
+const validPassword = function (inputPassword) {
+    
+    
+}
