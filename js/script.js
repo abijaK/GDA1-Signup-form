@@ -1,27 +1,20 @@
-let form = document.querySelector('#loginForm');
+const form = document.querySelector('#loginForm');
+const inputPassword = form.password;
+// console.log(pswd)
 
 /*
     test if form is not empty 
     =========================
  */ 
 // add listener on form
-form.addEventListener('submit', function () {
-    validForm(this);
-})
+// form.addEventListener('submit', function () {
+//     // e.preventDefault()
+//     validForm(this);
+// })
 
-const validForm = function (params) {
-    
-    let small = params.nextElementSibling;
-    // test if isNull
-    if (params.value.trim() == '') {
-        small.innerHTML = 'Firstname cannot be empty';
-        small.style.color = 'red';
-    }
-}
 
 /*
-    input Firstname traitement
-    ==========================
+    ====================== input Firstname traitement ======================
  */ 
 // add listener for Firstname
 form.firstname.addEventListener('change', function() {
@@ -36,9 +29,8 @@ const validFirstname = function(inputFirstname) {
     
     let testFirstname = firstnameRegExp.test(inputFirstname.value); 
 
-    // Catch the 'small' tag
+    // Retrieve 'small' tag to display message 
     let small = inputFirstname.nextElementSibling;
-    const smallStyle = document.querySelector('div');
 
     if (!testFirstname) {
         small.innerHTML = 'Looks like this cannot be an Firstname';
@@ -50,8 +42,7 @@ const validFirstname = function(inputFirstname) {
 }
 
 /*
-    input Lastname traitement
-    ==========================
+    ====================== input Lastname traitement ======================
 */ 
 
 // add listener for Lastname
@@ -67,9 +58,8 @@ const validLastname = function(inputLastname) {
     
     let testLastname = lastnameRegExp.test(inputLastname.value); 
 
-    // Catch the 'small' tag
+    // Retrieve 'small' tag to display message
     let small = inputLastname.nextElementSibling;
-    const smallStyle = document.querySelector('div');
     
     if (!testLastname) {
         small.innerHTML = 'Looks like this cannot be an Lastname';
@@ -81,8 +71,7 @@ const validLastname = function(inputLastname) {
 }
 
 /*
-    input Email traitement
-    ======================
+    ====================== input Email traitement ======================
  */ 
 // add listener for Email
 form.email.addEventListener('change', function() {
@@ -97,23 +86,37 @@ const validEmail = function(inputEmail) {
     
     let testEmail = emailRegExp.test(inputEmail.value); 
 
-    // Catch the 'small' tag
+    // Retrieve 'small' tag to display message
     let small = inputEmail.nextElementSibling;
-    const smallStyle = document.querySelector('div');
 
     if (!testEmail) {
         small.innerHTML = 'Looks like this cannot be an email';
         small.style.color = 'red';
     }
+
 }
 
+
+/*
+    ====================== input password traitement ======================
+ */ 
 // add listener for Password
-form.password.addEventListener('change', function () {
+form.password.addEventListener('change', function() {
     validPassword(this);
 })
 
-// Create function validPassword
-const validPassword = function (inputPassword) {
-    
+const validPassword = function(inputPassword) {
+    // Create RegExp to validate Password
+    let passwordRegExp = new RegExp('((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,40})');
+                                                                            
+    let testpassword = passwordRegExp.test(inputPassword.value); 
+
+    // Retrieve 'small' tag to display message
+    let small = inputPassword.nextElementSibling;
+
+    if (!testpassword) {
+        small.innerHTML = 'Must contain at least one lowercase or uppercase or special character \'@#$%\'';
+        small.style.color = 'red';
+    }
     
 }
