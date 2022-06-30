@@ -124,13 +124,9 @@ input:focus-within{
     border: .1px solid gray;
 }
 
- input[type="email"]:valid{
-    border: 1px solid green;
- }
-
- /* input[type="email"]:invalid{
+ input[type="email"]:invalid{
     border: 1px solid red;
- } */
+ }
 
 input[type="submit"]{
     background-color: var(--green-color);
