@@ -1,13 +1,20 @@
 const form = document.querySelector('form');
+const email = document.querySelector('#input-email')
 const input = document.querySelectorAll('input');
-const inputPassword = form.password;
-const smallMsg = form.password.nextElementSibling;
+const password = document.querySelector('#input-password')
+
+const strengthPasswordBadge = document.querySelector('#strengthPassword')
+
+const smallMsg = document.querySelector('#isEmpty-form')
 
 // set id for small tag
 const small_firstname = document.querySelector('#first-name');
 const small_lastname = document.querySelector('#last-name');
 const small_email = document.querySelector('#e-mail');
+
 const small_password = document.querySelector('#pass-word');
+
+
 
 /*
     Check if form is not empty 
@@ -37,6 +44,7 @@ form.addEventListener('submit', (e) => {
         smallMsg.style.fontSize = '15px';
         smallMsg.style.color = 'red';
         return false;
+
     } else {
         smallMsg.innerHTML = 'Form sent !';
         smallMsg.style.color = 'green';
@@ -127,25 +135,29 @@ form.email.addEventListener('change', () => {
 const validEmail = (inputEmail) => {
     
     // Create RegExp to validate Email
+    let emailRegExp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
-    // let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]{2,5}+[@]{1}+[a-zA-Z0-9.-_]+[.]{1}+[a-z]{2,10}$', 'g');
+    // let emailRegExp = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$, \g /;
 
-    // let emailRegExp = /^([a-zA-Z\._\-0-9]{4,10})@([a-zA-Z0-9]{3,10})\.([a-zA-Z]{2,5})$', 'g'/;
+    let testEmail = emailRegExp.test(email.value);
     
-    let emailRegExp = new RegExp('^([a-zA-Z\._\-0-9]{4,10})@([a-zA-Z0-9]{3,10})\.([a-zA-Z]{2,5})$', 'g');
-    
-    let testEmail = emailRegExp.test(inputEmail.value);
+    // console.log(inputEmail.value);
+
+    console.log(email.value);
     
     small_email.style.marginLeft = '50%';
 
     if (!testEmail) {
-        small_email.innerHTML = 'Looks like this cannot be an email';
+        small_email.innerHTML = 
+        'Looks like this cannot be an email';
         small_email.style.color = 'red';
         
         return false;
-    } else if (testEmail) {
-        small_email.innerHTML = 'Valid email';
 
+    } else{
+        
+        small_email.innerHTML = 'Valid email';
+        
         form.email.style.border = '1px solid green';
         small_email.style.color = 'green';
         small_email.style.marginLeft = '70%';
@@ -160,16 +172,16 @@ const validEmail = (inputEmail) => {
     ====================== input password traitement ======================
  */ 
 // add listener for Password
-form.password.addEventListener('change', () => {
+form.password.addEventListener('input', () => {
     validPassword(this);
 })
 
-const validPassword = (inputPassword) => {
-    // Create RegExp to validate Password
+const validPassword = (password) => {
 
+    // Create RegExp to validate Password
     let passwordRegExp = new RegExp('((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]){8,40})');
-                                                                            
-    let testpassword = passwordRegExp.test(inputPassword.value); 
+
+    let testpassword = passwordRegExp.test(password.value); 
 
     small_password.style.marginLeft = '9%';
 

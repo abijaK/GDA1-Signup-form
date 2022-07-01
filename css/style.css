@@ -145,3 +145,11 @@ small a{
     color: var(--red-color);
     font-weight: bolder;
 }
+
+#pass-word {
+    margin-top: 5%; 
+    /* display: none;  */
+    text-align :center;
+    background-color: aqua;
+
+}
