@@ -181,21 +181,41 @@ const validPassword = (password) => {
     // Create RegExp to validate Password
     let passwordRegExp = new RegExp('((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]){8,40})');
 
-    let testpassword = passwordRegExp.test(password.value); 
-
-    small_password.style.marginLeft = '9%';
-
-    if (!testpassword) {
-        small_password.innerHTML = 'Not less than 8 characters with a digit, lowercase, uppercase, a symbol: \'@#$%\'';
-        small_password.style.color = 'red';
-        
-        return false;
-    }
-    else{   
-        small_password.innerHTML = 'Valid password';
-        small_password.style.color = 'green';
-        small_password.style.marginLeft = '67%'
-
-        return true;
-    }
+       // The strong and medium password RegExp pattern checker
+       let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+       let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
+                        
+       // Set the background color and text of the badge according to the result
+       function strengthChecker(passwordParams) {
+           if (strongPassword.test(passwordParams)) {
+               strengthPasswordBadge.style.backgroundColor = 'green';
+               strengthPasswordBadge.textContent = 'Strong';
+               strengthPasswordBadge.innerHTML = 'Strong password';
+               
+           } else if (mediumPassword.test(passwordParams)) {
+               strengthPasswordBadge.style.backgroundColor = 'orange';
+               strengthPasswordBadge.textContent = 'Medium';
+           } else {
+               strengthPasswordBadge.style.backgroundColor = 'red';
+               strengthPasswordBadge.textContent = 'Weak';       
+           }
+       }
+   
+       // Adding an input event listener when a user types to the password input
+       password.addEventListener('input', () => {
+   
+           // The badge is hidden by default, so we show it
+           strengthPasswordBadge.style.display = 'block';
+           
+           //We then call the StrengChecker function as a callback then pass the typed password to it
+           clearTimeout(timeout);
+           timeout = setTimeout(() => strengthChecker(password.value), 500);
+   
+           // In case a user ckears the next, the badge is hidden again
+           if(password.value.length !== 0) {
+               strengthPasswordBadge.style.display != 'block';
+           } else {
+               strengthPasswordBadge.style.display = 'none';
+           }
+       })
 }
