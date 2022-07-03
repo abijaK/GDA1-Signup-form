@@ -121,6 +121,7 @@ input
 
 input:focus-within{
     border: .1px solid gray;
+    outline: none;
 }
 
  input[type="email"]:invalid{

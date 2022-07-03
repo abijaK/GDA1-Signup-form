@@ -3,7 +3,7 @@ const email = document.querySelector('#input-email')
 const input = document.querySelectorAll('input');
 const password = document.querySelector('#input-password')
 
-const strengthPasswordBadge = document.querySelector('#strengthPassword')
+const strengthPasswordBadge = document.querySelector('.strengthPassword')
 
 const smallMsg = document.querySelector('#isEmpty-form')
 
@@ -141,10 +141,6 @@ const validEmail = (inputEmail) => {
 
     let testEmail = emailRegExp.test(email.value);
     
-    // console.log(inputEmail.value);
-
-    console.log(email.value);
-    
     small_email.style.marginLeft = '50%';
 
     if (!testEmail) {
@@ -179,7 +175,7 @@ form.password.addEventListener('input', () => {
 const validPassword = (password) => {
 
     // Create RegExp to validate Password
-    let passwordRegExp = new RegExp('((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]){8,40})');
+    // let passwordRegExp = new RegExp('((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]){8,40})');
 
        // The strong and medium password RegExp pattern checker
        let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
@@ -188,34 +184,42 @@ const validPassword = (password) => {
        // Set the background color and text of the badge according to the result
        function strengthChecker(passwordParams) {
            if (strongPassword.test(passwordParams)) {
+               strengthPasswordBadge.innerHTML = 'Strong password';
+               
                strengthPasswordBadge.style.backgroundColor = 'green';
                strengthPasswordBadge.textContent = 'Strong';
-               strengthPasswordBadge.innerHTML = 'Strong password';
                
            } else if (mediumPassword.test(passwordParams)) {
                strengthPasswordBadge.style.backgroundColor = 'orange';
                strengthPasswordBadge.textContent = 'Medium';
            } else {
                strengthPasswordBadge.style.backgroundColor = 'red';
-               strengthPasswordBadge.textContent = 'Weak';       
+               strengthPasswordBadge.textContent = 'Weak'; 
+
+               strengthPasswordBadge.innerHTML = 'Weak password';
+               strengthPasswordBadge.style.color = 'white';
            }
        }
    
+    //    console.log(form.password.value);
        // Adding an input event listener when a user types to the password input
-       password.addEventListener('input', () => {
+       form.password.addEventListener('input', () => {
    
            // The badge is hidden by default, so we show it
            strengthPasswordBadge.style.display = 'block';
-           
            //We then call the StrengChecker function as a callback then pass the typed password to it
-           clearTimeout(timeout);
-           timeout = setTimeout(() => strengthChecker(password.value), 500);
+           
+        //    clearTimeout(timeout);
+           let timeout = setTimeout(() => strengthChecker(password.value), 500);
    
-           // In case a user ckears the next, the badge is hidden again
-           if(password.value.length !== 0) {
-               strengthPasswordBadge.style.display != 'block';
-           } else {
-               strengthPasswordBadge.style.display = 'none';
-           }
-       })
+            // if (strengthChecker(password.value)) {
+            
+                // In case a user clears the next, the badge is hidden again
+                if(form.password.value.length !== 0) {
+                    strengthPasswordBadge.style.display != 'block';
+                } else {
+                    strengthPasswordBadge.style.display = 'none';
+                }
+            // }
+        })
 }
